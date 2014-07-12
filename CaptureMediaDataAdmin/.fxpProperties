@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" compiles="true" parentProject="735dd126-bd6d-459b-9e8e-0139907618f2" projectUUID="735dd126-bd6d-459b-9e8e-0139907618f2" pureCatalystProject="false" sdkVersion="4.6.0" uuid="5f75e89e-0a85-4d92-8eeb-9049f339d5ab" version="15">
+  <projects/>
+  <src/>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="5f75e89e-0a85-4d92-8eeb-9049f339d5ab"/>
+    <linked location="E:/Workspace/CaptureMediaDataAdmin/libs" path="/libs" position="1" uuid="9b1dbb6c-d391-4d6d-b865-a7b2367c3a73"/>
+  </swc>
+  <misc/>
+  <theme/>
+  <mxmlFormattingPrefs groupAttributesByState="true" maxLineWidth="100" mxmlAlignAttributes="true" mxmlAttributeOrder="id,userLabel,includeIn,excludeFrom,visible,x,y,z,left,right,top,bottom,width,height,minWidth,minHeight,maxWidth,maxHeight,label" mxmlKeepAttributeValuesOrganized="true"/>
+</fxpProperties>

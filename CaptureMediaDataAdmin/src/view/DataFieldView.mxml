@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:DataFieldViewCode xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:view="view.*"
+		 width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:HTTPService id="saveVideoDataService" 
+					   result="onResult(event)" fault="onFault(event)"
+					   method="GET" resultFormat="text">
+			
+		</s:HTTPService>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.CalendarLayoutChangeEvent;
+			import mx.events.DropdownEvent;
+			
+			/* protected function removeTimeFields(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.target.id == "minusBtnSub")
+				{
+					subTimeFields.visible = false;
+					subTimeFields.includeInLayout = false;
+				}
+				else
+				{
+					minTimeField.visible = false;
+					minTimeField.includeInLayout = false;
+				}
+					
+			} */
+			
+			/* protected function addTimefields(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.target.id == "plusBtnSub")
+				{
+					subTimeFields.visible = true;
+					subTimeFields.includeInLayout = true;
+				}
+				else
+				{
+					minTimeField.visible = true;
+					minTimeField.includeInLayout = true;
+				}
+			} */
+			
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace view "view.*";
+		
+		 /* .datepickerBtn
+		{
+			background-image:url('/assets/images/datepicker.png'); 
+			
+		} */
+		
+		/* .datepickerBtn {
+			skin: Embed("/assets/images/datepicker.png");
+			 null the skins defined in default.css
+			upSkin: ClassReference(null);
+			overSkin: ClassReference(null);
+			downSkin: ClassReference(null);
+			disabledSkin: ClassReference(null);
+		} */
+		
+		/* .minusBtnStyle
+		{
+			icon: ClassReference("");
+		} */
+	</fx:Style>
+	<s:Group width="100%" height="100%">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:LinearGradient rotation="0">
+					<s:GradientEntry color="0xE2E7EA"/>
+					<s:GradientEntry color="0xDFE7EA"/>
+					<s:GradientEntry color="0xE6EBEF"/>
+					<s:GradientEntry color="0xE9EEF2"/>
+					<s:GradientEntry color="0xF7F8FA"/>
+					<s:GradientEntry color="0xFDFDFD"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+					<s:GradientEntry color="0xFFFFFF"/>
+				</s:LinearGradient>
+			</s:fill>
+			<s:stroke>
+				<s:SolidColorStroke color="0xE2E7EA" />
+			</s:stroke>
+		</s:Rect>
+		<s:Scroller height="100%">
+			<s:VGroup width="100%" paddingBottom="10" paddingLeft="15" paddingRight="25" paddingTop="35" gap="15">
+				<!--<s:HGroup horizontalAlign="center" verticalAlign="middle" width="100%">
+					<s:Label text="Start Time"/>
+					<s:TextInput width="50" height="30" text="{_model.startTime}"/>
+					<s:Label text="End Time" />
+					<s:TextInput width="50" height="30" text="{_model.endTime}"/>
+				</s:HGroup>-->
+				<!--<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Event" />
+					<s:ComboBox width="150" height="25" skinClass="view.skins.CustomComboBoxSkin"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Department" />
+					<s:ComboBox width="150" height="25" skinClass="view.skins.CustomComboBoxSkin"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Date" />
+					<s:Group>
+						<mx:DateField id="datepick" width="150" height="25" styleName="datepickerBtn"/>
+					</s:Group>
+					
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="District" />
+					<s:ComboBox width="150" height="25" skinClass="view.skins.CustomComboBoxSkin"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Place" />
+					<s:TextInput width="150" height="25"/>
+				</s:HGroup>
+				<s:VGroup id="subGps" horizontalAlign="right" verticalAlign="middle" width="100%" gap="15">
+					<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+						<s:Label text="Subject" />
+						<s:TextInput width="200" height="25"/>
+						<s:Button id="plusBtnSub" width="22" height="22" icon="@Embed('assets/images/plusIcon.png')" click="addTimefields(event)"/>
+					</s:HGroup>
+					<s:HGroup id="subTimeFields" horizontalAlign="right" verticalAlign="middle" width="215">
+						<s:Label text="Start Time" />
+						<s:TextInput width="50" height="30" text="{_model.startTime}"/>
+						<s:Label text="End Time" />
+						<s:TextInput width="50" height="30" text="{_model.endTime}"/>
+						<s:Button id="minusBtnSub" width="22" height="22" icon="@Embed('assets/images/minus_icon.png')" click="removeTimeFields(event)"/>
+					</s:HGroup>
+				</s:VGroup>
+				<s:VGroup id="minGps" horizontalAlign="right" verticalAlign="middle" width="100%" gap="15">
+					<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+						<s:Label text="Ministers" />
+						<s:TextInput width="200" height="25"/>
+						<s:Button id="plusBtnMin" width="22" height="22" icon="@Embed('assets/images/plusIcon.png')" click="addTimefields(event)"/>
+					</s:HGroup>
+					<s:HGroup id="minTimeField" horizontalAlign="right" verticalAlign="middle" width="215">
+						<s:Label text="Start Time" />
+						<s:TextInput width="50" height="30" text="{_model.startTime}"/>
+						<s:Label text="End Time" />
+						<s:TextInput width="50" height="30" text="{_model.endTime}"/>
+						<s:Button id="minusBtnMin" width="22" height="22" icon="@Embed('assets/images/minus_icon.png')" click="removeTimeFields(event)"/>
+					</s:HGroup>
+				</s:VGroup>-->
+				
+				
+				<!--<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Other Personalities" />
+					<s:TextInput width="150" height="25"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Other Subjects" />
+					<s:TextInput width="150" height="25"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Issues" />
+					<s:TextInput width="150" height="25"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="Region" />
+					<s:ComboBox width="150" height="25" skinClass="view.skins.CustomComboBoxSkin"/>
+				</s:HGroup>
+				<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+					<s:Label text="State" />
+					<s:TextInput width="150" height="25"/>
+				</s:HGroup>-->
+				<s:VGroup id="dynFieldGroup" width="100%">
+					
+				</s:VGroup>
+				
+				<s:VGroup horizontalAlign="left" verticalAlign="middle" width="100%">
+					<s:Label text="Witty Remarks" />
+					<s:TextArea id="remarks" width="95%" height="60" />
+				</s:VGroup>
+				<s:HGroup horizontalAlign="center" verticalAlign="middle" width="100%" gap="100">
+					<s:Button id="saveData" label="Save" height="30"/>
+					<s:Button label="Clear" height="30"/>
+				</s:HGroup>
+			</s:VGroup>
+		</s:Scroller>
+		
+	</s:Group>
+</view:DataFieldViewCode>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:VideoDisplayViewCode xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:view="view.*"
+		 width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<view:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle" gap="5"/>
+	</view:layout>
+	<s:Group width="100%" height="100%" >
+		<s:VideoPlayer id="vidPlayer" width="100%" height="100%" source="assets/videos/bunny.flv"
+					   skinClass="view.skins.playerskins.CustomPlayerSkin"/>
+		<!--<s:Label x="205" y="172" width="100" height="27" text="{startTime}"/> <s:Label x="412"
+																					   y="172"
+																					   width="100"
+																					   height="27"
+																					   text="{endTime}"/>-->
+	</s:Group>
+	
+</view:VideoDisplayViewCode>

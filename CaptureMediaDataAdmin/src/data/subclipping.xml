@@ -1,0 +1,52 @@
+<videos>
+	<video>
+		<video_id>id_001</video_id>
+		<video_name>name_001</video_name>
+		<video_path>path_001</video_path>
+		<subclippings>
+			<sub_id>sub_id_001</sub_id>
+			<sub_name>sub_name_001</sub_name>
+			<datafields>
+				<field name="Start Time" type="textField" value="234.267" />
+				<field name="End Time" type="textField" value="456.648" />
+				<field name="Place" type="textField" value="Pattom" />
+				<field name="Subject" type="textField" value="Protect Eco-system" />
+				<field name="Date" type="dateField" value="Wed Mar 15 23:55:03 GMT+0530 2014"/>
+				<field name="District" type="dropDown" prompt="Thiruvanathapuram" >
+					<displaylist>
+						<item value="Thiruvanathapuram"/>
+						<item value="Kollam"/>
+						<item value="Pathanamthitta"/>
+						<item value="Alappuzha"/>
+						<item value="Kottayam"/>
+						<item value="Idukki"/>
+						<item value="Ernakulam"/>
+						<item value="Thrissur"/>
+						<item value="Palakkadu"/>
+						<item value="Malappuram"/>
+						<item value="Kozhikode"/>
+						<item value="Vayanadu"/>
+						<item value="Kannur"/>
+						<item value="Kasaragod"/>
+					</displaylist>
+				</field>
+			</datafields>
+		</subclippings>
+	</video>
+	<video>
+		<video_id>id_002</video_id>
+		<video_name>name_002</video_name>
+		<video_path>path_002</video_path>
+		<subclippings>
+			<sub_id>sub_id_002</sub_id>
+			<sub_name>sub_name_002</sub_name>
+			<datafields>
+				<field name="Start Time" type="textField" value="334.567" />
+				<field name="End Time" type="textField" value="556.678" />
+				<field name="Place" type="textField" value="Kolkotta" />
+				<field name="Subject" type="textField" value="Chithrasammelanam" />
+				<field name="Date" type="dateField" value="Wed Mar 19 23:55:03 GMT+0530 2014"/>
+			</datafields>
+		</subclippings>
+	</video>
+</videos>

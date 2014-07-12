@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<!--<s:states>
+	<s:State name="Subject"/>
+	<s:State name="Minister"/>
+	</s:states>-->
+	<fx:Script>
+		<![CDATA[
+			import com.capturemedia.business.model.ModelLocator;
+			
+			import customevents.TimeFieldEvent;
+			
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			
+			[Bindable]
+			public var _model:ModelLocator = ModelLocator.getInstance();
+			
+			private var _fieldWidth:Number;
+			private var _fieldHeight:Number;
+			private var _fieldName:String;
+			private var _dataColl:ArrayCollection;
+			private var _fieldValue:String;
+			
+			[Bindable]
+			public function get fieldWidth():Number
+			{
+				return _fieldWidth;
+			}
+			
+			public function set fieldWidth(value:Number):void
+			{
+				_fieldWidth = value;
+			}
+			
+			[Bindable]
+			public function get fieldHeight():Number
+			{
+				return _fieldHeight;
+			}
+			
+			public function set fieldHeight(value:Number):void
+			{
+				_fieldHeight = value;
+			}
+			
+			[Bindable]
+			public function get fieldName():String
+			{
+				return _fieldName;
+			}
+			
+			public function set fieldName(value:String):void
+			{
+				_fieldName = value;
+			}
+			
+			[Bindable]
+			public function get dataColl():ArrayCollection
+			{
+				return _dataColl;
+			}
+			
+			public function set dataColl(value:ArrayCollection):void
+			{
+				_dataColl = value;
+			}
+			
+			[Bindable]
+			public function get fieldValue():String
+			{
+				return _fieldValue;
+			}
+			
+			public function set fieldValue(value:String):void
+			{
+				_fieldValue = value;
+			}
+			protected function removeTimeFields(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.target.id == "minusBtnSub")
+				{
+					/* subTimeFields.visible = false;
+					subTimeFields.includeInLayout = false;
+					minusBtnSub.visible = false;
+					minusBtnSub.includeInLayout = false;
+					plusBtn1Sub.visible = true;
+					plusBtn1Sub.includeInLayout = true; */
+					this.visible = false;
+					this.includeInLayout = false;
+					
+					var timeFieldObj:Object = new Object();
+					timeFieldObj.personality = this.txtPerson.text;
+					timeFieldObj.subject = this.valTxt.text;
+					timeFieldObj.startTime = this.startTimeField.text;
+					timeFieldObj.endTime = this.endTimeField.text;
+					
+					this.dispatchEvent(new TimeFieldEvent(TimeFieldEvent.DELETE_FIELD_EVENT, timeFieldObj));
+				}
+				
+			} 
+			
+			protected function addTimefields(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.target.id == "plusBtn1Sub")
+				{
+					subTimeFields.visible = true;
+					subTimeFields.includeInLayout = true;
+					minusBtnSub.visible = true;
+					minusBtnSub.includeInLayout = true;
+					plusBtn1Sub.visible = false;
+					plusBtn1Sub.includeInLayout = false;
+				}
+				if(event.target.id == "plusBtnSub"){
+					var obj:Object = new Object();
+					obj.id = "plusBtn1Sub";
+					this.dispatchEvent(new TimeFieldEvent(TimeFieldEvent.ADD_FIELD_EVENT, obj));
+				}
+				/* else
+				{
+					minTimeField.visible = true;
+					minTimeField.includeInLayout = true;
+				} */
+			} 
+			
+			protected function editCurrentField(event:MouseEvent):void
+			{
+				var timeFieldObj:Object = new Object();
+				timeFieldObj = this;
+								
+				this.dispatchEvent(new TimeFieldEvent(TimeFieldEvent.EDIT_FIELD_EVENT, timeFieldObj));
+			}
+			
+		]]>
+	</fx:Script>
+	<s:VGroup id="subGps" horizontalAlign="right" verticalAlign="middle" width="100%" gap="15">
+		<s:HGroup horizontalAlign="left" verticalAlign="middle" width="100%" gap="2">
+			<s:CheckBox id="editCheckBox" selected="true" click="editCurrentField(event)"/>
+			<s:Label id="lablPerson" text="{fieldName}"  width="70"/>
+			<s:TextInput id="txtPerson" width="{fieldWidth}" height="{fieldHeight}" text="{fieldValue}"/>
+		</s:HGroup>
+		<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+			<s:Label id="nameText" text="subject" />
+			<s:TextInput id="valTxt" width="120" height="{fieldHeight}"/>
+			<s:Button id="minusBtnSub" width="20" height="20" icon="@Embed('/assets/images/minus_icon.png')" click="removeTimeFields(event)"/>
+			<s:Button id="plusBtn1Sub" width="20" height="20" icon="@Embed('/assets/images/plusIcon.png')"
+					  click="addTimefields(event)" visible="false" includeInLayout="false"/>
+		</s:HGroup>
+		<s:HGroup id="subTimeFields" horizontalAlign="right" verticalAlign="middle" width="215">
+			<s:Label text="Start Time" />
+			<s:TextInput width="45" height="25" id="startTimeField"/>
+			<s:Label text="End Time" />
+			<s:TextInput width="45" height="25" id="endTimeField"/>
+			<s:Button id="plusBtnSub" width="20" height="20" icon="@Embed('/assets/images/plusIcon.png')" click="addTimefields(event)"/>
+		</s:HGroup>
+	</s:VGroup>
+</s:Group>

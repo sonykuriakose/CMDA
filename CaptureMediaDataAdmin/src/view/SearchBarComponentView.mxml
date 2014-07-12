@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view:SearchBarComponentViewCode xmlns:fx="http://ns.adobe.com/mxml/2009" 
+								 xmlns:s="library://ns.adobe.com/flex/spark" 
+								 xmlns:mx="library://ns.adobe.com/flex/mx" 
+								 xmlns:view="view.*" 
+								 width="100%" height="100%">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:HTTPService id="getVideoFieldIdService" url="http://prd.nictpeople.org/admin/filename.php?getFileId={getTypeField}" 
+					   result="onResultGetTypeField(event)" fault="onFaultGetTypeField(event)"
+					   method="GET" resultFormat="text">
+			
+		</s:HTTPService>
+		<!--<s:HTTPService id="getVideoDetailsService" url="http://prd.nictpeople.org/admin/editgui.php?type={getTypeField}&id={getIdField}" 
+					   result="onResultGetIdField(event)" fault="onFaultGetIdField(event)"
+					   method="GET" resultFormat="text">
+			
+		</s:HTTPService>-->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			[Bindable][Embed(source="/assets/images/video_camera_grey.png")]
+			private var greyIcon:Class;
+			
+			[Bindable][Embed(source="/assets/images/videocamera_black.png")]
+			private var blackIcon:Class;
+			
+		]]>
+	</fx:Script>
+	<view:layout>
+		<s:HorizontalLayout verticalAlign="middle" horizontalAlign="left" gap="5"/>
+	</view:layout>
+	<s:ComboBox id="searchDropDown" width="50%" height="90%" prompt="Select Type" skinClass="view.skins.CustomComboBoxSkin"/>
+	<s:ComboBox id="searchDropDownItem" labelField="name" width="50%" height="90%" prompt="Select Video" skinClass="view.skins.CustomComboBoxSkin"/>
+	<s:Image id="processVidIcon" width="8%" height="90%" source="{blackIcon}" buttonMode="true" useHandCursor="true" scaleMode="zoom" click="startProcessingVideo(event)"/>
+</view:SearchBarComponentViewCode>

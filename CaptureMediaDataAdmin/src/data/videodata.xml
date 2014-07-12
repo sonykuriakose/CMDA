@@ -1,0 +1,59 @@
+<videodata>
+	<video>
+		<video_id>id_001</video_id>
+		<video_name>name_001</video_name>
+		<video_path>path_001</video_path>
+		<datafields>
+			<field name="Event" type="dropDown" prompt="Select">
+				<displaylist>
+					<item value="Event1"/>
+					<item value="Event2"/>
+					<item value="Event3"/>
+					<item value="Event4"/>
+					<item value="Event5"/>
+					<item value="Event6"/>
+				</displaylist>
+			</field>
+			<field name="Department" type="dropDown" prompt="Select">
+				<displaylist>
+					<item value="Department1"/>
+					<item value="Department2"/>
+					<item value="Department3"/>
+					<item value="Department4"/>
+					<item value="Department5"/>
+				</displaylist>
+			</field>
+			<field name="Place" type="textField"/>
+			<field name="Subject" type="textField"/>
+			<field name="Date" type="dateField"/>
+			<field name="District" type="dropDown" prompt="Select">
+				<displaylist>
+					<item value="Tthiruvanathapuram"/>
+					<item value="Kollam"/>
+					<item value="Pathanamthitta"/>
+					<item value="Alappuzha"/>
+					<item value="Kottayam"/>
+					<item value="Idukki"/>
+					<item value="Ernakulam"/>
+					<item value="Thrissur"/>
+					<item value="Palakkadu"/>
+					<item value="Malappuram"/>
+					<item value="Kozhikode"/>
+					<item value="Vayanadu"/>
+					<item value="Kannur"/>
+					<item value="Kasaragod"/>
+				</displaylist>
+			</field>
+		</datafields>
+	</video>
+	<video>
+		<video_id>id_002</video_id>
+		<video_name>name_002</video_name>
+		<video_path>path_002</video_path>
+		<datafields>
+			<field name="Place" type="textField"/>
+			<field name="Subject" type="textField"/>
+			<field name="Date" type="dateField"/>
+		</datafields>
+	</video>
+</videodata>

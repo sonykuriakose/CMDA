@@ -1,0 +1,12 @@
+@font-face { 
+	src: url("../assets/fonts/malayalam.ttf"); 
+	fontFamily: 'Malayalam'; 
+	fontStyle: normal; 			
+	embedAsCFF:true; 
+	advancedAntiAliasing: true; 
+}
+
+.nameField{
+	fontFamily: Arial; 
+	fontStyle: normal;
+}

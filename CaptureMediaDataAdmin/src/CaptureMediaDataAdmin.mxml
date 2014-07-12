@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com:ApplicationManager xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   xmlns:com="com.capturemedia.business.core.*"
+			   width="1000" height="800" xmlns:view="view.*"
+			   creationComplete="init()" currentState="PreLoader">
+	<fx:Script>
+		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:HTTPService id="appLoadingService" url="http://prd.nictpeople.org/admin/type.php?getType=all" 
+					   result="onResult(event)" fault="onFault(event)"
+					   method="GET" resultFormat="text">
+			
+		</s:HTTPService>
+	</fx:Declarations>
+	<com:layout>
+		<s:VerticalLayout horizontalAlign="left" verticalAlign="middle"/>
+	</com:layout>
+	<com:states>
+		<s:State name="PreLoader"/>
+		<s:State name="Initialized"/>
+	</com:states>
+	<s:VGroup includeIn="Initialized" width="100%" height="100%" horizontalAlign="left" verticalAlign="middle" paddingLeft="20">
+		<s:VGroup id="headerContent" width="100%" height="16%" gap="0">
+			<s:Group width="100%" height="100%">
+				<s:Rect width="100%" height="100%">
+					<s:fill>
+						<s:LinearGradient rotation="90">
+							<s:GradientEntry color="0xFFFFFF"/>
+							<s:GradientEntry color="0xFFFFFF"/>
+							<s:GradientEntry color="0xFEFEFE"/>
+							<s:GradientEntry color="0xFEFEFE"/>
+							<s:GradientEntry color="0xFCFDFD"/>
+							<s:GradientEntry color="0xF9FBFB"/>
+							<s:GradientEntry color="0xF5F8F8"/>
+							<s:GradientEntry color="0xF0F5F5"/>
+							<s:GradientEntry color="0xEDF3F3"/>
+							<s:GradientEntry color="0xE7EEEE"/>
+							<s:GradientEntry color="0xDEE8E3"/>
+							<s:GradientEntry color="0xD4E1E1"/>
+							<s:GradientEntry color="0xD0DEDE"/>
+							<s:GradientEntry color="0xCDDBDB"/>
+							<s:GradientEntry color="0xCAD9D9"/>
+							<s:GradientEntry color="0xC8D8D8"/>
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+				<s:Image id="logoImg" source="assets/images/logoImg.png" left="100" top="10"/>
+				<s:Image id="logoText" source="assets/images/logoTxt.png" left="160" top="25"/>
+			</s:Group>
+			<s:Rect width="100%" height="1">
+				<s:fill>
+					<s:SolidColor color="#626D6C"/>
+				</s:fill>
+			</s:Rect>
+		</s:VGroup>
+		<s:VGroup id="bodyContent" width="100%" height="92%" paddingLeft="50">
+			<s:HGroup id="searchBarContainer" width="65%" height="30">
+				<view:SearchBarComponentView id="searchBar" width="100%" height="100%"/>
+			</s:HGroup>
+			<s:HGroup id="videoDataFieldContainer" width="100%" height="70%">
+				<s:VGroup id="videoDisplayContainer" width="70%" height="100%">
+					<view:VideoDisplayView width="100%" height="100%"/>
+				</s:VGroup>
+				<s:VGroup id="dataFieldContainer" width="30%" height="100%" paddingTop="-20">
+					<s:Label text="Data" fontSize="14" top="-50"/>
+					<view:DataFieldView id="dataFieldView" width="100%" height="100%"/>
+				</s:VGroup>
+			</s:HGroup>
+			<s:HGroup id="gridViewContainer" width="100%" height="25%">
+				<view:SubClippingsGridView width="100%" height="100%" />
+			</s:HGroup>
+		</s:VGroup>
+		</s:VGroup>
+		
+	<s:Group includeIn="PreLoader" alpha=".8"
+					   contentBackgroundColor="#dae7be"
+					   height="100%"
+					   id="appLoader"
+					   visible="true"
+					   width="100%" horizontalCenter="0" verticalCenter="0">
+		<s:Rect height="100%" width="100%">
+			<s:fill>
+				<s:SolidColor color="#444444"/>
+			</s:fill>
+		</s:Rect>
+		
+		<s:Image source="assets/images/loading11.swf" height="50%" width="50%" >
+			
+		</s:Image>
+	</s:Group>
+</com:ApplicationManager>

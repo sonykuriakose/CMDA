@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
+		 xmlns:customcomponents="view.ui.customcomponents.*" creationComplete="init(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<!--<s:states>
+		<s:State name="textField"/>
+		<s:State name="dateField"/>
+		<s:State name="dropDown"/>
+		<s:State name="List"/>
+	</s:states>-->
+	<fx:Script>
+		<![CDATA[
+			import com.capturemedia.business.model.ModelLocator;
+			
+			import customevents.CaptureTimeEvent;
+			import customevents.SaveSubTypeDataEvent;
+			import customevents.TimeFieldEvent;
+			
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			private var _fieldWidth:Number;
+			private var _fieldHeight:Number;
+			private var _fieldName:String;
+			private var _dataColl:ArrayCollection;
+			private var _fieldValue:String;
+			[Bindable]
+			private var _model:ModelLocator = ModelLocator.getInstance();
+			
+			[Bindable]
+			public function get fieldWidth():Number
+			{
+				return _fieldWidth;
+			}
+			
+			public function set fieldWidth(value:Number):void
+			{
+				_fieldWidth = value;
+			}
+			
+			[Bindable]
+			public function get fieldHeight():Number
+			{
+				return _fieldHeight;
+			}
+			
+			public function set fieldHeight(value:Number):void
+			{
+				_fieldHeight = value;
+			}
+			
+			[Bindable]
+			public function get fieldName():String
+			{
+				return _fieldName;
+			}
+			
+			public function set fieldName(value:String):void
+			{
+				_fieldName = value;
+			}
+			
+			[Bindable]
+			public function get dataColl():ArrayCollection
+			{
+				return _dataColl;
+			}
+			
+			public function set dataColl(value:ArrayCollection):void
+			{
+				_dataColl = value;
+			}
+			
+			[Bindable]
+			public function get fieldValue():String
+			{
+				return _fieldValue;
+			}
+			
+			public function set fieldValue(value:String):void
+			{
+				_fieldValue = value;
+			}
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(timeField){
+					timeField.addEventListener(TimeFieldEvent.ADD_FIELD_EVENT, dispatchAddField);
+//					timeField.addEventListener(TimeFieldEvent.DELETE_FIELD_EVENT, dispatchDeleteField);
+				}
+//				FlexGlobals.topLevelApplication.addEventListener(TimeFieldEvent.DELETE_FIELD_EVENT, dispatchDeleteField);
+				FlexGlobals.topLevelApplication.addEventListener(CaptureTimeEvent.TIME_EVENT, updateTimeFields);
+			}
+			public var timeFieldId:TimeFieldSet;
+			protected function dispatchAddField(event:TimeFieldEvent):void
+			{
+				// TODO Auto-generated method stub
+				 var timeFieldObj:Object = new Object();
+				if(dataFieldSet.numElements == 1)
+				{
+					timeFieldObj.personality = timeField.txtPerson.text;
+					timeFieldObj.subject = timeField.valTxt.text;
+					timeFieldObj.startTime = timeField.startTimeField.text;
+					timeFieldObj.endTime = timeField.endTimeField.text;
+				}
+				else if(dataFieldSet.numElements > 1)
+				{
+					timeFieldObj.personality = timeFieldId.txtPerson.text;
+					timeFieldObj.subject = timeFieldId.valTxt.text;
+					timeFieldObj.startTime = timeFieldId.startTimeField.text;
+					timeFieldObj.endTime = timeFieldId.endTimeField.text;
+				}
+				FlexGlobals.topLevelApplication.dispatchEvent(new SaveSubTypeDataEvent(SaveSubTypeDataEvent.TIME_FIELD_ADDED_EVENT, timeFieldObj));
+				TimeFieldSet(event.target).editCheckBox.selected = false;
+				TimeFieldSet(event.target).txtPerson.enabled = false;
+				TimeFieldSet(event.target).valTxt.enabled = false;
+				TimeFieldSet(event.target).startTimeField.enabled = false;
+				TimeFieldSet(event.target).endTimeField.enabled = false;
+				TimeFieldSet(event.target).plusBtnSub.enabled = false;
+				
+				timeFieldId = new TimeFieldSet();
+				timeFieldId.fieldHeight = 30;
+				timeFieldId.fieldWidth = 150;
+				timeFieldId.fieldName = timeField.fieldName;
+				var obj:Object = new Object();
+				obj.timefieldset = timeFieldId;
+				dataFieldSet.addElement(timeFieldId);
+				_model.currentTimeFieldId = timeFieldId;
+				timeFieldId.addEventListener(TimeFieldEvent.ADD_FIELD_EVENT,dispatchAddField);
+				_model.timeFieldNumElements = dataFieldSet.numElements;
+			}
+			
+			protected function updateTimeFields(event:Event):void
+			{
+				if(_model.timeFieldNumElements == 1){
+					timeField.startTimeField.text = _model.startTime;
+					timeField.endTimeField.text = _model.endTime;
+				}
+				else if(_model.timeFieldNumElements > 1){
+					_model.currentTimeFieldId.startTimeField.text = _model.startTime;
+					_model.currentTimeFieldId.endTimeField.text = _model.endTime;
+				}
+//				_model.timeFieldNumElements = dataFieldSet.numElements;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace view "view.*";
+		
+		/* .datepickerBtn
+		{
+		background-image:url('/assets/images/datepicker.png'); 
+		
+		} */
+		
+		/* .datepickerBtn {
+		skin: Embed("/assets/images/datepicker.png");
+		// null the skins defined in default.css 
+		upSkin: ClassReference(null);
+		overSkin: ClassReference(null);
+		downSkin: ClassReference(null);
+		disabledSkin: ClassReference(null);
+		} */
+		
+	</fx:Style>
+	<s:HGroup horizontalAlign="right" verticalAlign="middle" width="100%">
+		<s:HGroup id="normalField" horizontalAlign="left" verticalAlign="middle" width="100%">
+			<s:Label id="nameTxt" text="{fieldName}" width="70"/>
+			<s:TextInput id="valueTxt" width="{fieldWidth}" height="{fieldHeight}" text="{fieldValue}"/>
+		</s:HGroup>
+		
+		<!--<mx:DateField id="datepick" width="{fieldWidth}" height="{fieldHeight}" styleName="datepickerBtn"  includeIn="dateField"/>-->
+		<!--<s:ComboBox width="{fieldWidth}" height="{fieldHeight}" skinClass="view.skins.CustomComboBoxSkin" dataProvider="{dataColl}" labelField="value" includeIn="dropDown"/>-->
+		<s:VGroup  id="dataFieldSet" visible="false" includeInLayout="false" horizontalAlign="left" verticalAlign="middle" width="100%">
+			<customcomponents:TimeFieldSet id="timeField" fieldName="{fieldName}" fieldHeight="{fieldHeight}" fieldWidth="{fieldWidth}"/>
+		</s:VGroup>
+		
+	</s:HGroup>
+</s:Group>

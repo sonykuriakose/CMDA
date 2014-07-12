@@ -1,0 +1,5 @@
+<SaveResponse>
+	<action>Save</action>			<!-- <action>Update</action> -->
+	<success>1</success>
+	<failure>0</failure>
+</SaveResponse>

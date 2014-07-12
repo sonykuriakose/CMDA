@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<!--<s:states>
+	<s:State name="Subject"/>
+	<s:State name="Minister"/>
+	</s:states>-->
+	<fx:Script>
+		<![CDATA[
+			import com.capturemedia.business.model.ModelLocator;
+			
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]
+			public var _model:ModelLocator = ModelLocator.getInstance();
+			
+			private var _fieldWidth:Number;
+			private var _fieldHeight:Number;
+			private var _fieldName:String;
+			private var _dataColl:ArrayCollection;
+			private var _fieldValue:String;
+			
+			[Bindable]
+			public function get fieldWidth():Number
+			{
+				return _fieldWidth;
+			}
+			
+			public function set fieldWidth(value:Number):void
+			{
+				_fieldWidth = value;
+			}
+			
+			[Bindable]
+			public function get fieldHeight():Number
+			{
+				return _fieldHeight;
+			}
+			
+			public function set fieldHeight(value:Number):void
+			{
+				_fieldHeight = value;
+			}
+			
+			[Bindable]
+			public function get fieldName():String
+			{
+				return _fieldName;
+			}
+			
+			public function set fieldName(value:String):void
+			{
+				_fieldName = value;
+			}
+			
+			[Bindable]
+			public function get dataColl():ArrayCollection
+			{
+				return _dataColl;
+			}
+			
+			public function set dataColl(value:ArrayCollection):void
+			{
+				_dataColl = value;
+			}
+			
+			[Bindable]
+			public function get fieldValue():String
+			{
+				return _fieldValue;
+			}
+			
+			public function set fieldValue(value:String):void
+			{
+				_fieldValue = value;
+			}
+			protected function removeTimeFields(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.target.id == "minusBtnSub")
+				{
+					subTimeFields.visible = false;
+					subTimeFields.includeInLayout = false;
+					plusBtn1Sub.visible = true;
+					plusBtn1Sub.includeInLayout = true;
+					
+				}
+				/* else
+				{
+					minTimeField.visible = false;
+					minTimeField.includeInLayout = false;
+				} */
+				
+			} 
+			
+			protected function addTimefields(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(event.target.id == "plusBtnSub")
+				{
+					subTimeFields.visible = true;
+					subTimeFields.includeInLayout = true;
+				}
+				/* else
+				{
+					minTimeField.visible = true;
+					minTimeField.includeInLayout = true;
+				} */
+			} 
+			
+		]]>
+	</fx:Script>
+	<s:HGroup id="subTimeFields" horizontalAlign="right" verticalAlign="middle" width="215">
+		<s:Label text="Start Time" />
+		<s:TextInput width="45" height="25" text="{_model.startTime}"/>
+		<s:Label text="End Time" />
+		<s:TextInput width="45" height="25" text="{_model.endTime}"/>
+		<s:Button id="plusBtnSub" width="20" height="20" icon="@Embed('assets/images/plusIcon.png')" click="addTimefields(event)"/>
+	</s:HGroup>
+	
+</s:Group>
