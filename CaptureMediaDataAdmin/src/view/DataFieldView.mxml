@@ -8,7 +8,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<s:HTTPService id="saveVideoDataService" 
 					   result="onResult(event)" fault="onFault(event)"
-					   method="GET" resultFormat="text">
+					   method="POST" resultFormat="text">
 			
 		</s:HTTPService>
 	</fx:Declarations>
@@ -18,36 +18,7 @@
 			import mx.events.CalendarLayoutChangeEvent;
 			import mx.events.DropdownEvent;
 			
-			/* protected function removeTimeFields(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				if(event.target.id == "minusBtnSub")
-				{
-					subTimeFields.visible = false;
-					subTimeFields.includeInLayout = false;
-				}
-				else
-				{
-					minTimeField.visible = false;
-					minTimeField.includeInLayout = false;
-				}
-					
-			} */
 			
-			/* protected function addTimefields(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				if(event.target.id == "plusBtnSub")
-				{
-					subTimeFields.visible = true;
-					subTimeFields.includeInLayout = true;
-				}
-				else
-				{
-					minTimeField.visible = true;
-					minTimeField.includeInLayout = true;
-				}
-			} */
 			
 		]]>
 	</fx:Script>

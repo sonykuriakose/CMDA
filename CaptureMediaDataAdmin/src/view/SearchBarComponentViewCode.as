@@ -61,6 +61,7 @@ package view
 		{
 			
 			getTypeField = searchDropDown.selectedItem;
+			_model.subType = getTypeField;
 			getVideoFieldIdService.send();
 			
 		}
@@ -95,6 +96,7 @@ package view
 		{
 			getVideoDetailsService = new HTTPService();
 			getVideoDetailsService.url = "http://prd.nictpeople.org/admin/editgui.php?type="+getTypeField+"&videoId="+getIdField;
+//			getVideoDetailsService.url = "http://localhost/prd/editgui.php?type="+getTypeField+"&videoId="+getIdField;
 			getVideoDetailsService.method = "GET";
 			getVideoDetailsService.resultFormat = "text";
 			getVideoDetailsService.addEventListener(ResultEvent.RESULT, onResultGetVideoDetails);
@@ -119,9 +121,10 @@ package view
 		
 		protected function onResultGetVideoDetails(event:ResultEvent):void
 		{
+//			Alert.show("Video results :: " +event.result);
 			dataFieldArray = new Array();
 			var obj:Object= com.adobe.serialization.json.JSON.decode(String(event.result));
-			var videoDataList:ArrayCollection = new ArrayCollection();
+			
 			var array:Array = obj.DATA_ITEMS as Array;
 			var fieldVO:FieldsVO;
 			for(var i:int = 0; i < array.length; i++)

@@ -60,7 +60,9 @@ package view
 		
 		protected function startVideo(event:VideoProcessEvent):void
 		{
+			vidPlayer.source =  "";
 			vidPlayer.source = "http://prd.nictpeople.org/videos/"+event.data.videoId+".flv";
+//			vidPlayer.source = "http://localhost/prd/videos/"+event.data.videoId+".flv";
 			vidPlayer.playPauseButton.enabled = true;
 //			vidPlayer.play();
 		}

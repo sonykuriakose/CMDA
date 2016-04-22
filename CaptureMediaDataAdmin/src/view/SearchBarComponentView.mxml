@@ -11,8 +11,8 @@
 					   method="GET" resultFormat="text">
 			
 		</s:HTTPService>
-		<!--<s:HTTPService id="getVideoDetailsService" url="http://prd.nictpeople.org/admin/editgui.php?type={getTypeField}&id={getIdField}" 
-					   result="onResultGetIdField(event)" fault="onFaultGetIdField(event)"
+		<!--<s:HTTPService id="getVideoFieldIdService" url="http://localhost/prd/filename.php?getFileId={getTypeField}" 
+					   result="onResultGetTypeField(event)" fault="onFaultGetTypeField(event)"
 					   method="GET" resultFormat="text">
 			
 		</s:HTTPService>-->

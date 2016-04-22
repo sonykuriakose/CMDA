@@ -24,6 +24,9 @@ package com.capturemedia.business.model
 		public var typeList:ArrayCollection;
 		public var timeFieldNumElements:Number = 1;
 		public var currentTimeFieldId:TimeFieldSet;
+		public var subType:String;
+		
+		public var subclipGridColl:ArrayCollection;
 		
 		public function ModelLocator(enforcer:SingletonEnforcer)
 		{

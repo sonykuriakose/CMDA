@@ -5,11 +5,10 @@ package view
 	import com.capturemedia.business.model.ModelLocator;
 	
 	import customevents.GenerateNextViewEvent;
-	import customevents.SaveSubTypeDataEvent;
 	import customevents.TimeFieldEvent;
 	
-	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
@@ -49,7 +48,6 @@ package view
 		{
 			dynFieldGroup.removeAllElements();
 			FlexGlobals.topLevelApplication.searchBar.addEventListener(GenerateNextViewEvent.DATA_FIELD_SET, initializeFields);
-			FlexGlobals.topLevelApplication.addEventListener(SaveSubTypeDataEvent.TIME_FIELD_ADDED_EVENT, updateStartEndTimeToSaveObject);
 			FlexGlobals.topLevelApplication.addEventListener(TimeFieldEvent.DELETE_FIELD_EVENT, deleteFieldsFromArray);
 			FlexGlobals.topLevelApplication.addEventListener(TimeFieldEvent.EDIT_FIELD_EVENT, enableFieldsToEdit);
 		}
@@ -106,7 +104,7 @@ package view
 			{
 				if(dataFieldsCollection[i].language != "ML"){
 					
-				
+					
 					field = new DataFieldInput();
 					field.fieldName = dataFieldsCollection[i].name;
 					switch(dataFieldsCollection[i].type)
@@ -134,7 +132,7 @@ package view
 							field.fieldWidth = 150;
 							field.fieldHeight = 30;
 							break;
-							
+						
 					}
 					dynFieldGroup.addElement(field);
 					fieldColl.addItem(field);
@@ -146,134 +144,118 @@ package view
 		private var fieldColl:ArrayCollection = new ArrayCollection();
 		private var saveObject:Object;
 		private var saveObjColl:Array = new Array();
-
-		protected function updateStartEndTimeToSaveObject(event:SaveSubTypeDataEvent):void
-		{
-			saveObject = new Object();
-			saveObject.subject = event.data.subject;
-			saveObject.startTime = event.data.startTime;
-			saveObject.endTime = event.data.endTime;
-			saveObject.remarks = remarks.text;
-			for(var j:int = 0; j<fieldColl.length; j++){
-				for(var i:int = 0; i<dynFieldGroup.numElements; i++){
-					if((fieldColl.getItemAt(j).fieldName == DataFieldInput(dynFieldGroup.getElementAt(i)).fieldName) && (fieldColl.getItemAt(j).fieldName != "subject"))
-					{
-						switch(fieldColl.getItemAt(j).fieldName)
-						{
-							case "event":
-								saveObject.event = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "personality":
-								saveObject.personality = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "department":
-								saveObject.department = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "district":
-								saveObject.district = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "place":
-								saveObject.place = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "time code":
-								saveObject.timeCode = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "issues":
-								saveObject.issues = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "more issues":
-								saveObject.moreIssues = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "date":
-								saveObject.date = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "other issues":
-								saveObject.otherIssues = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-							case "file id":
-								saveObject.fileId = DataFieldInput(dynFieldGroup.getElementAt(i)).fieldValue;
-								break;
-								
-						}
-					}
-				}
-			}
-			saveObjColl.push(saveObject);
-		}
+		
 		[Bindable]
-		public var dataString:String = new String();		
+		public var dataString:String = new String();
+		
 		protected function onSaveDataClick(event:MouseEvent):void
 		{
-			if(saveObjColl.length < _model.timeFieldNumElements){
-				
-				saveObject = new Object();
-				saveObject.remarks = remarks.text;
-				for(var k:int = 0; k<fieldColl.length; k++){
-					for(var m:int = 0; m<dynFieldGroup.numElements; m++){
-						if((fieldColl.getItemAt(k).fieldName == DataFieldInput(dynFieldGroup.getElementAt(m)).fieldName) && (DataFieldInput(dynFieldGroup.getElementAt(m)).fieldName != "subject"))
+			_model.subclipGridColl = new ArrayCollection();
+			
+			for(var k:int = 0; k<_model.videoDataFieldColl.length; k++){
+				for(var m:int = 0; m<dynFieldGroup.numElements; m++){
+					if((_model.videoDataFieldColl[k].name == DataFieldInput(dynFieldGroup.getElementAt(m)).fieldName))
+					{
+						if((_model.videoDataFieldColl[k].name != "personality"))
 						{
-							switch(fieldColl.getItemAt(k).fieldName)
+							if((_model.videoDataFieldColl[k].language == "EN") && (_model.videoDataFieldColl[k].name == DataFieldInput(dynFieldGroup.getElementAt(m)).fieldName))
 							{
-								case "event":
-									saveObject.event = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "personality":
-									saveObject.personality = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "department":
-									saveObject.department = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "district":
-									saveObject.district = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "place":
-									saveObject.place = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "time code":
-									saveObject.timeCode = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "issues":
-									saveObject.issues = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "more issues":
-									saveObject.moreIssues = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "date":
-									saveObject.date = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "other issues":
-									saveObject.otherIssues = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								case "file id":
-									saveObject.fileId = DataFieldInput(dynFieldGroup.getElementAt(m)).fieldValue;
-									break;
-								
+								saveObject = new Object();
+								saveObject.value = DataFieldInput(dynFieldGroup.getElementAt(m)).valueTxt.text;
+								saveObject.name = _model.videoDataFieldColl[k].name;
+								saveObject.id = _model.videoDataFieldColl[k].id;
+								saveObject.ln = _model.videoDataFieldColl[k].language;
+								saveObject.type = "textField";
+								saveObjColl.push(saveObject);
+								_model.subclipGridColl.addItem(saveObject);
+								for(var i:int = 0; i < _model.videoDataFieldColl.length; i++){
+									if(_model.videoDataFieldColl[i].language == "ML" && _model.videoDataFieldColl[i].id == saveObject.id+"_ml"){
+										
+										saveObject = new Object();
+										saveObject.value = _model.videoDataFieldColl[i].value;
+										saveObject.name = _model.videoDataFieldColl[i].name;
+										saveObject.id = _model.videoDataFieldColl[i].id;
+										saveObject.ln = _model.videoDataFieldColl[i].language;
+										saveObject.type = "textField";
+										saveObjColl.push(saveObject);
+										break;
+									}
+								}
 							}
+							/*else if((_model.videoDataFieldColl[k].language == "ML") && (_model.videoDataFieldColl[k].id == saveObject.id+"_ml"))
+							{
+								saveObject = new Object();
+								saveObject.value = _model.videoDataFieldColl[k].value;
+								saveObject.name = _model.videoDataFieldColl[k].name;
+								saveObject.id = _model.videoDataFieldColl[k].id;
+								saveObject.ln = _model.videoDataFieldColl[k].language;
+								saveObject.type = "textField";
+								saveObjColl.push(saveObject);
+							}*/
 						}
-						else if((DataFieldInput(dynFieldGroup.getElementAt(m)).fieldName == "subject") && (DataFieldInput(dynFieldGroup.getElementAt(m)).dataFieldSet.numElements > 0)){
-							var timefield:TimeFieldSet = TimeFieldSet(DataFieldInput(dynFieldGroup.getElementAt(m)).dataFieldSet.getElementAt(((DataFieldInput(dynFieldGroup.getElementAt(m)).dataFieldSet).numElements-1)));
-							saveObject.subject = timefield.valTxt.text;
-							saveObject.startTime = timefield.startTimeField.text;
-							saveObject.endTime = timefield.endTimeField.text;
-							
+						else if((_model.videoDataFieldColl[k].name == "personality"))
+						{
+							saveObject = new Object();
+							saveObject.name = _model.videoDataFieldColl[k].name;
+							saveObject.id = _model.videoDataFieldColl[k].id;
+							saveObject.type = "textField";
+							var multiItemArr:Array = new Array();
+							for(var a:int = 0; a < DataFieldInput(dynFieldGroup.getElementAt(m)).dataFieldSet.numElements; a++){
+								
+								var timefield:TimeFieldSet = TimeFieldSet(DataFieldInput(dynFieldGroup.getElementAt(m)).dataFieldSet.getElementAt(a))
+								var multiObj:Object = new Object();
+								multiObj.id = a;
+								multiObj.name = timefield.txtPerson.text;
+								multiObj.name_ml = "";
+								multiObj.multi_sub = timefield.valTxt.text;
+								multiObj.multi_sub_ml = "";
+								multiObj.timecode_from = timefield.startTimeField.text;
+								multiObj.timecode_to = timefield.endTimeField.text;
+								
+								multiItemArr.push(multiObj);
+							}
+							saveObject.name = "personality";
+							saveObject.id = "personality";
+							saveObject.type = "Listname";
+							saveObject.MultiItem = multiItemArr;
+							saveObject.ln = _model.videoDataFieldColl[k].language;
+							saveObject.value = _model.videoDataFieldColl[k].value;
+							saveObjColl.push(saveObject);
+							_model.subclipGridColl.addItem(saveObject);
 						}
 					}
 				}
-				saveObjColl.push(saveObject);
 			}
+			saveObject = new Object();
+			saveObject.id = "subtype";
+			saveObject.name = "sub type";
+			saveObject.ln = "EN";
+			saveObject.type = "textField";
+			saveObject.value = _model.subType;
 			
+			saveObjColl.push(saveObject);
 			
 			var objSend:Object = new Object();
 			dataString = com.adobe.serialization.json.JSON.encode(saveObjColl);
 			trace("Parsed data to save :: "+dataString);
-//			Alert.show("Parsed data to save :: "+dataString);
-			saveVideoDataService.url = "http://prd.nictpeople.org/admin/save?data='"+dataString+"'"; 
+//						Alert.show("Parsed data to save :: "+dataString);
+			debug(dataString);
+			saveVideoDataService.url = "http://prd.nictpeople.org/admin/save.php?data='"+dataString+"'";
+//			saveVideoDataService.url = "http://localhost/prd/save.php?data='"+dataString+"'";
 			objSend.data = dataString;
 			saveVideoDataService.send(objSend);
 		}
 		
+		public static function debug(str:String):void{
+			if(ExternalInterface.available){
+				ExternalInterface.call("flashDebug", str);
+			}
+		}
+
+		
 		protected function onResult(event:ResultEvent):void
 		{
+			debug("In Result Event! ~~~ "+"Result :: "+event.result+ " ::::  Result message from backend :: " +event.message);
 			trace("Result :"+event.message);
 			if(event.result == "1"){
 				Alert.show("Subtype(s) saved successfully!");
@@ -312,7 +294,7 @@ package view
 				
 				saveObjColl.pop();
 			}
-				
+			
 			for(var m:int = 0; m<dynFieldGroup.numElements; m++){
 				if((DataFieldInput(dynFieldGroup.getElementAt(m)).fieldName == "personality") && (DataFieldInput(dynFieldGroup.getElementAt(m)).dataFieldSet.numElements > 0))
 				{
@@ -339,7 +321,7 @@ package view
 				}
 			}
 		}
-				
+		
 		public function dispose():void
 		{
 			saveObjColl = new Array();

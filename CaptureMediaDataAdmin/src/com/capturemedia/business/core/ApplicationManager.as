@@ -47,7 +47,7 @@ package com.capturemedia.business.core
 		protected function onFault(event:FaultEvent):void
 		{
 			// TODO Auto-generated method stub
-			Alert.show("Request faulted!!" + event.message);
+			Alert.show("Request faulted!!" + /*event.message*/ "   Buhahahhaa");
 		}
 		
 		public function dispose():void

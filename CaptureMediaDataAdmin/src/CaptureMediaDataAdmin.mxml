@@ -19,6 +19,11 @@
 					   method="GET" resultFormat="text">
 			
 		</s:HTTPService>
+		<!--<s:HTTPService id="appLoadingService" url="http://localhost/prd/type.php?getType=all" 
+					   result="onResult(event)" fault="onFault(event)"
+					   method="GET" resultFormat="text">
+			
+		</s:HTTPService>-->
 	</fx:Declarations>
 	<com:layout>
 		<s:VerticalLayout horizontalAlign="left" verticalAlign="middle"/>
@@ -54,6 +59,7 @@
 				</s:Rect>
 				<s:Image id="logoImg" source="assets/images/logoImg.png" left="100" top="10"/>
 				<s:Image id="logoText" source="assets/images/logoTxt.png" left="160" top="25"/>
+				<s:Label text="- Demo" left="480" top="25" fontSize="24" fontWeight="bold"/>
 			</s:Group>
 			<s:Rect width="100%" height="1">
 				<s:fill>
@@ -65,6 +71,9 @@
 			<s:HGroup id="searchBarContainer" width="65%" height="30">
 				<view:SearchBarComponentView id="searchBar" width="100%" height="100%"/>
 			</s:HGroup>
+			<s:HGroup id="gridViewContainer" width="69%" height="25%">
+				<view:SubClippingsGridView width="99%" height="100%" />
+			</s:HGroup>
 			<s:HGroup id="videoDataFieldContainer" width="100%" height="70%">
 				<s:VGroup id="videoDisplayContainer" width="70%" height="100%">
 					<view:VideoDisplayView width="100%" height="100%"/>
@@ -74,9 +83,7 @@
 					<view:DataFieldView id="dataFieldView" width="100%" height="100%"/>
 				</s:VGroup>
 			</s:HGroup>
-			<s:HGroup id="gridViewContainer" width="100%" height="25%">
-				<view:SubClippingsGridView width="100%" height="100%" />
-			</s:HGroup>
+			
 		</s:VGroup>
 		</s:VGroup>
 		
