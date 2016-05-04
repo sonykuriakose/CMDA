@@ -9,7 +9,7 @@ package utils.vo
 		public var language:String = new String();
 		public var value:String = new String();
 		public var type:String = new String();
-		public var displayList:ArrayCollection = new ArrayCollection();
+		public var displayList:Array = new Array();
 		
 		public function FieldsVO()
 		{

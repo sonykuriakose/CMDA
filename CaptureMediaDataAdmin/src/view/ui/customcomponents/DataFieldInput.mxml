@@ -20,14 +20,13 @@
 			import customevents.SaveSubTypeDataEvent;
 			import customevents.TimeFieldEvent;
 			
-			import mx.collections.ArrayCollection;
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
 			private var _fieldWidth:Number;
 			private var _fieldHeight:Number;
 			private var _fieldName:String;
-			private var _dataColl:ArrayCollection;
+			private var _dataColl:Array;
 			private var _fieldValue:String;
 			[Bindable]
 			private var _model:ModelLocator = ModelLocator.getInstance();
@@ -66,12 +65,12 @@
 			}
 			
 			[Bindable]
-			public function get dataColl():ArrayCollection
+			public function get dataColl():Array
 			{
 				return _dataColl;
 			}
 			
-			public function set dataColl(value:ArrayCollection):void
+			public function set dataColl(value:Array):void
 			{
 				_dataColl = value;
 			}
@@ -97,6 +96,7 @@
 				}
 //				FlexGlobals.topLevelApplication.addEventListener(TimeFieldEvent.DELETE_FIELD_EVENT, dispatchDeleteField);
 				FlexGlobals.topLevelApplication.addEventListener(CaptureTimeEvent.TIME_EVENT, updateTimeFields);
+				updateTimeFiledSets();
 			}
 			public var timeFieldId:TimeFieldSet;
 			protected function dispatchAddField(event:TimeFieldEvent):void
@@ -150,6 +150,23 @@
 //				_model.timeFieldNumElements = dataFieldSet.numElements;
 			}
 			
+			private function updateTimeFiledSets():void
+			{
+				// TODO Auto Generated method stub
+				/*if(dataColl.length > 0)
+				{
+					timeFieldId = new TimeFieldSet();
+					timeFieldId.fieldHeight = 30;
+					timeFieldId.fieldWidth = 150;
+					timeFieldId.fieldName = timeField.fieldName;
+					var obj:Object = new Object();
+					obj.timefieldset = timeFieldId;
+					dataFieldSet.addElement(timeFieldId);
+					_model.currentTimeFieldId = timeFieldId;
+					timeFieldId.addEventListener(TimeFieldEvent.ADD_FIELD_EVENT,dispatchAddField);
+					_model.timeFieldNumElements = dataFieldSet.numElements;
+				}*/
+			}
 			
 		]]>
 	</fx:Script>
@@ -183,7 +200,7 @@
 		<!--<mx:DateField id="datepick" width="{fieldWidth}" height="{fieldHeight}" styleName="datepickerBtn"  includeIn="dateField"/>-->
 		<!--<s:ComboBox width="{fieldWidth}" height="{fieldHeight}" skinClass="view.skins.CustomComboBoxSkin" dataProvider="{dataColl}" labelField="value" includeIn="dropDown"/>-->
 		<s:VGroup  id="dataFieldSet" visible="false" includeInLayout="false" horizontalAlign="left" verticalAlign="middle" width="100%">
-			<customcomponents:TimeFieldSet id="timeField" fieldName="{fieldName}" fieldHeight="{fieldHeight}" fieldWidth="{fieldWidth}"/>
+			<customcomponents:TimeFieldSet id="timeField" fieldName="{fieldName}" fieldHeight="{fieldHeight}" fieldWidth="{fieldWidth}" dataColl="{dataColl}"/>
 		</s:VGroup>
 		
 	</s:HGroup>

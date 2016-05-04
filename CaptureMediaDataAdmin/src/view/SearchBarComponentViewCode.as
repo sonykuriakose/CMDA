@@ -68,6 +68,7 @@ package view
 		
 		protected function onResultGetTypeField(event:ResultEvent):void
 		{
+//			trace("Video Data:" + event.result);
 			var obj:Object= com.adobe.serialization.json.JSON.decode(String(event.result));
 			var videoList:ArrayCollection = new ArrayCollection();
 			for each(var str:String in obj)
@@ -135,7 +136,25 @@ package view
 				fieldVO.language = array[i].ln;
 				fieldVO.type = array[i].type;
 				fieldVO.value = array[i].value;
-				
+				if(array[i].id == "personality" && array[i].MultiItem.length > 0)
+				{
+					var multiItemArr:Array = new Array();
+					var multiObj:Object;
+					for(var j:int = 0; j < array[i].MultiItem.length; j++)
+					{
+						multiObj = new Object();
+						multiObj.id = array[i].MultiItem[j].id;
+						multiObj.name = array[i].MultiItem[j].name;
+						multiObj.name_ml = array[i].MultiItem[j].name_ml;
+						multiObj.multi_sub = array[i].MultiItem[j].multi_sub;
+						multiObj.multi_sub_ml = array[i].MultiItem[j].multi_sub_ml;
+						multiObj.timecode_from = array[i].MultiItem[j].timecode_from;
+						multiObj.timecode_to = array[i].MultiItem[j].timecode_to;
+						
+						multiItemArr.push(multiObj);
+					}
+					fieldVO.displayList = multiItemArr;
+				}
 				dataFieldArray.push(fieldVO);
 			}
 			

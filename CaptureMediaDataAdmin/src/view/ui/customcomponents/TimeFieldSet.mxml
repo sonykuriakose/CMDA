@@ -13,10 +13,11 @@
 		<![CDATA[
 			import com.capturemedia.business.model.ModelLocator;
 			
-			import customevents.TimeFieldEvent;
-			
 			import mx.collections.ArrayCollection;
 			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			import customevents.TimeFieldEvent;
 			
 			[Bindable]
 			public var _model:ModelLocator = ModelLocator.getInstance();
@@ -24,7 +25,7 @@
 			private var _fieldWidth:Number;
 			private var _fieldHeight:Number;
 			private var _fieldName:String;
-			private var _dataColl:ArrayCollection;
+			private var _dataColl:Array;
 			private var _fieldValue:String;
 			
 			[Bindable]
@@ -61,12 +62,12 @@
 			}
 			
 			[Bindable]
-			public function get dataColl():ArrayCollection
+			public function get dataColl():Array
 			{
 				return _dataColl;
 			}
 			
-			public function set dataColl(value:ArrayCollection):void
+			public function set dataColl(value:Array):void
 			{
 				_dataColl = value;
 			}
@@ -137,6 +138,7 @@
 								
 				this.dispatchEvent(new TimeFieldEvent(TimeFieldEvent.EDIT_FIELD_EVENT, timeFieldObj));
 			}
+			
 			
 		]]>
 	</fx:Script>

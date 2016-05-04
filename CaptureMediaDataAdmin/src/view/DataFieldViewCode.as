@@ -131,6 +131,8 @@ package view
 							field.normalField.includeInLayout = false;
 							field.fieldWidth = 150;
 							field.fieldHeight = 30;
+							field.dataColl = dataFieldsCollection[i].displayList;
+							
 							break;
 						
 					}
